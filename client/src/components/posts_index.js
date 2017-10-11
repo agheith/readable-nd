@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { fetchPosts } from '../actions';
 
+
 class PostsIndex extends Component{
 
     componentDidMount(){
@@ -14,24 +15,11 @@ class PostsIndex extends Component{
         return _.map(this.props.posts, post => {
             return(
                 <li key={post.id} className="list-group-item">
-                    <button type="button"
-                            className="btn btn-info btn-sm"
-                        >
-                        <i className="fa fa-thumbs-up" aria-hidden="true"></i>
-                        Like
-                    </button>
                     {post.title}
-                    <button type="button"
-                            className="btn btn-danger btn-sm"
-                        >
-                        <i className="fa fa-thumbs-down" aria-hidden="true"></i>
-                        Like
-                    </button>
                 </li>
             );
         });
     }
-
 
     render(){
         console.log(this.props.posts);
@@ -47,15 +35,13 @@ class PostsIndex extends Component{
                     {this.renderPosts()}
                 </ul>
             </div>
-        )
+        );
     }
 }
-
 
 function mapStateToProps(state){
     return { posts: state.posts };
 }
-
 
 
 export default connect(mapStateToProps, { fetchPosts })(PostsIndex);
