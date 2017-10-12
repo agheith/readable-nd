@@ -4,6 +4,7 @@ import uuid from 'uuid';
 export const FETCH_POSTS = 'FETCH_POSTS';
 export const FETCH_POST = 'FETCH_POST';
 export const CREATE_POST = 'CREATE_POST';
+export const DELETE_POST = 'DELETE_POST';
 
 const ROOT_URL = 'http://localhost:3001';
 const AUTH_HEADERS = { 'Authorization': 'whatever-you-want', 'Accept': 'application/json', 'Content-Type': 'application/json' }
@@ -47,5 +48,15 @@ export function createPost(values, callback){
     return {
         type: CREATE_POST,
         payload: data
+    }
+}
+
+export function deletePost(id, callback){
+
+    const request = axios.delete(`${ROOT_URL}/posts/${id}`).then(() => callback())
+
+    return {
+        type: DELETE_POST,
+        payload: id
     }
 }
