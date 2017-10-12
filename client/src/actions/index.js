@@ -1,8 +1,9 @@
 import axios from 'axios';
 import uuid from 'uuid';
 
-export const FETCH_POSTS = 'FETCH_POSTS'
-export const CREATE_POST = 'CREATE_POST'
+export const FETCH_POSTS = 'FETCH_POSTS';
+export const FETCH_POST = 'FETCH_POST';
+export const CREATE_POST = 'CREATE_POST';
 
 const ROOT_URL = 'http://localhost:3001';
 const AUTH_HEADERS = { 'Authorization': 'whatever-you-want', 'Accept': 'application/json', 'Content-Type': 'application/json' }
@@ -16,6 +17,18 @@ export function fetchPosts(){
         type: FETCH_POSTS,
         payload: request
     };
+}
+
+
+export function fetchPost(id){
+
+    const request = axios.get(`${ROOT_URL}/posts/${id}`)
+
+    return {
+        type: FETCH_POST,
+        payload: request
+    }
+
 }
 
 
