@@ -9,13 +9,32 @@ class PostsNew extends Component{
     renderField(field){
 
         const { meta: { touched, error } } = field;
-        const className = `form-group ${touched && error ? 'has-danger' : ''}`;
+        const className = `form-group col-sm-6 ${touched && error ? 'has-danger' : ''}`;
 
         return(
             <div className={className}>
                 <label>{field.label}</label>
                 <input
                     className="form-control"
+                    type="text"
+                    {...field.input}
+                />
+            <div className="text-help">
+                {touched ? error : ''}
+            </div>
+            </div>
+        );
+    }
+
+    renderBodyField(field){
+        const { meta: { touched, error } } = field;
+        const className = `form-group col-sm-12 ${touched && error ? 'has-danger' : ''}`;
+
+        return(
+            <div className={className}>
+                <label>{field.label}</label>
+                <textarea
+                    className="form-control my-text"
                     type="text"
                     {...field.input}
                 />
@@ -38,25 +57,29 @@ class PostsNew extends Component{
         //handleSubmit comes from redux-form
 
         return(
-            <form onSubmit={handleSubmit(this.onSubmit.bind(this))}>
-                <Field
-                    label="Title"
-                    name="title"
-                    component={this.renderField}
-                />
-                <Field
-                    label="Author"
-                    name="author"
-                    component={this.renderField}
-                />
-                <Field
-                    label="Post Content"
-                    name="body"
-                    component={this.renderField}
-                />
-            <button type="submit" className="btn btn-primary">Submit</button>
-            <Link to="/" className="btn btn-danger">Cancel</Link>
-            </form>
+            <div>
+                <form onSubmit={handleSubmit(this.onSubmit.bind(this))}>
+                    <Field
+                        label="Title"
+                        name="title"
+                        component={this.renderField}
+                    />
+                    <Field
+                        label="Author"
+                        name="author"
+                        component={this.renderField}
+                    />
+                    <Field
+                        label="Post Content"
+                        name="body"
+                        component={this.renderBodyField}
+                    />
+                <div className="my-buttons">
+                    <button type="submit" className="btn btn-primary">Submit</button>
+                    <Link to="/" className="btn btn-danger">Cancel</Link>
+                </div>
+                </form>
+            </div>
         );
     }
 }

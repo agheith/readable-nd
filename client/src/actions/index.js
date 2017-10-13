@@ -6,6 +6,7 @@ export const FETCH_POST = 'FETCH_POST';
 export const CREATE_POST = 'CREATE_POST';
 export const DELETE_POST = 'DELETE_POST';
 export const VOTE_POST = 'VOTE_POST';
+export const FETCH_CATEGORIES = 'FETCH_CATEGORIES';
 
 const ROOT_URL = 'http://localhost:3001';
 const AUTH_HEADERS = { 'Authorization': 'whatever-you-want', 'Accept': 'application/json', 'Content-Type': 'application/json' }
@@ -65,8 +66,23 @@ export function deletePost(id, callback){
 
 export function votePost(id, vote) {
   return dispatch => {
-    axios
-      .post(`${ROOT_URL}/posts/${id}`, {option: vote})
-      .then(res => dispatch({type: VOTE_POST, payload: res.data}));
+    axios.post(`${ROOT_URL}/posts/${id}`, {option: vote}).then(res => dispatch({
+
+          type: VOTE_POST,
+          payload: res.data
+
+       }));
+  };
+}
+
+
+export function fetchCategories() {
+  return dispatch => {
+    axios.get(`${ROOT_URL}/categories`).then(res => dispatch({
+
+        type: FETCH_CATEGORIES,
+         payload: res.data
+
+     }));
   };
 }

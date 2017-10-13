@@ -2,9 +2,28 @@ import _ from 'lodash';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
-import { ListGroupItem } from 'react-bootstrap';
+import { fetchCategories } from '../actions'
 
 class CategoriesList extends Component{
+
+    componentDidMount(){
+        this.props.fetchCategories();
+    }
+
+    renderCategories(){
+        if(this.props.categories){
+            return _.map(this.props.categories, (category, index) => {
+                return (
+                    <li key={index} className="list-group-item">
+                        <Link to ="/">
+                            {category.name}
+                        </Link>
+                    </li>
+                );
+            })
+        }
+
+    }
 
 
 
@@ -13,22 +32,17 @@ class CategoriesList extends Component{
             <div className="col-sm-3 pull-left categories">
                 <div>
                     <h4>Choose a category:</h4>
-                    <div className="list-group-item">
-                        <Link to="/">All</Link>
-                    </div>
-                    <div className="list-group-item">
-                        <Link to="/">React</Link>
-                    </div>
-                    <div className="list-group-item">
-                        <Link to="/">Redux</Link>
-                    </div>
-                    <div className="list-group-item">
-                        <Link to="/">Udacity</Link>
-                    </div>
+                    <ul className="list-group">
+                        {this.renderCategories()}
+                    </ul>
                 </div>
             </div>
         );
     }
 }
 
-export default CategoriesList;
+function mapStateToProps(state){
+    return { categories: state.categories }
+}
+
+export default connect(mapStateToProps, { fetchCategories })(CategoriesList);

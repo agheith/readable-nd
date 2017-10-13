@@ -30,12 +30,19 @@ class PostsShow extends Component{
         return(
             <div>
                 <Link to="/">Back to Index</Link>
-                <button
-                    className="add-post btn btn-danger pull-xs-right"
-                    onClick={this.onDeleteClick.bind(this)}
-                >
-                    Delete Post
-                </button>
+                <div className="flexthem">
+                    <button
+                        className="add-post btn btn-danger pull-xs-right"
+                        onClick={this.onDeleteClick.bind(this)}
+                    >
+                        Delete Post
+                    </button>
+                    <button
+                        className="add-post btn btn-info pull-xs-right"
+                    >
+                        Edit Post
+                    </button>
+                </div>
                 <div className="list-group-item post-show">
                     <h3>{post.title}</h3>
                     <h6>Posted By: {post.author}</h6>
