@@ -51,7 +51,7 @@ class PostsNew extends Component{
                 />
                 <Field
                     label="Post Content"
-                    name="content"
+                    name="body"
                     component={this.renderField}
                 />
             <button type="submit" className="btn btn-primary">Submit</button>
@@ -72,8 +72,8 @@ function validate(values){
     if(!values.author){
         errors.author = "Enter your name please";
     }
-    if(!values.content){
-        errors.content = "Enter some content";
+    if(!values.body){
+        errors.body = "Enter some content";
     }
 
     //if the error object is empty, the form is fine to submit

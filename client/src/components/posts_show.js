@@ -36,9 +36,11 @@ class PostsShow extends Component{
                 >
                     Delete Post
                 </button>
-                <h3>{post.title}</h3>
-                <h6>{post.author}</h6>
-                <p>post.content</p>
+                <div className="list-group-item post-show">
+                    <h3>{post.title}</h3>
+                    <h6>Posted By: {post.author}</h6>
+                    <p>{post.body}</p>
+                </div>
             </div>
         );
     };
