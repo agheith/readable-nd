@@ -3,7 +3,8 @@ import { FETCH_POSTS,
          FETCH_POST,
          EDIT_POST,
          DELETE_POST,
-         VOTE_POST
+         VOTE_POST,
+         CATEGORY_POST
      } from '../actions';
 
 export default function (state={}, action){
@@ -25,7 +26,8 @@ export default function (state={}, action){
     case VOTE_POST:
         return { ...state, [action.payload.id]: action.payload }
 
-
+    case CATEGORY_POST:
+        return _.mapKeys(action.payload, 'id')
 
     default:
         return state;

@@ -13,11 +13,23 @@ class PostsIndex extends Component{
     }
 
     renderPosts(){
+
+        if(this.props.posts.length === 0){
+            return <div>No posts available for this category yet!</div>
+        }
+
         return _.map(this.props.posts, (post, index) => {
             return(
                 <li key={index} className="list-group-item">
                     <Link to={`posts/${post.id}`}>
                         {post.title}
+                    </Link>
+                    <Link to={`${post.category}/edit/${post.id}`}>
+                        <button
+                            className="add-post btn btn-info pull-xs-right"
+                        >
+                            Edit Post
+                        </button>
                     </Link>
                     <h6>Posted By: {post.author}</h6>
                     <h6>Category: {post.category}</h6>
@@ -70,7 +82,8 @@ class PostsIndex extends Component{
 }
 
 function mapStateToProps(state){
-    return { posts: state.posts };
+    const posts = _.filter(state.posts, (post) => !post.deleted);
+    return { posts };
 }
 
 

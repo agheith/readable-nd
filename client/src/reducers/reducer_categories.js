@@ -6,8 +6,6 @@ export default function (state = {}, action) {
         case FETCH_CATEGORIES:
             return action.payload.categories;
 
-        
-
         default:
             return state;
     }

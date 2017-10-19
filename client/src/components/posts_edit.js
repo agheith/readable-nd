@@ -9,13 +9,12 @@ class PostsEdit extends Component{
 
     render(){
         return(
-
+            <dov>Edit Component</dov>
         );
     }
 }
 
 export default reduxForm({
-    validate,
     form: 'PostsEditForm'
 })(
     connect(null, { editPost })(PostsEdit)

@@ -39,7 +39,7 @@ class PostsShow extends Component{
                         Delete Post
                     </button>
 
-                    <Link to={`posts/${post.id}`}>
+                    <Link to={`${post.category}/edit/${post.id}`}>
                         <button
                             className="add-post btn btn-info pull-xs-right"
                         >

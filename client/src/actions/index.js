@@ -111,6 +111,6 @@ export function categoryPost(category){
         type: CATEGORY_POST,
         payload: res.data
 
-        }));
+    })).catch(err => console.log(err));
     }
 }

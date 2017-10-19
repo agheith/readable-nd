@@ -15,7 +15,7 @@ class CategoriesList extends Component{
             return _.map(this.props.categories, (category, index) => {
                 return (
                     <li key={index} className="list-group-item">
-                        <Link to={`/${category.path}`} onClick={() => categoryPost(category.path)}>
+                        <Link to={`/${category.path}`} onClick={() => this.props.categoryPost(category.path)}>
                             {category.name}
                         </Link>
                     </li>
@@ -28,17 +28,14 @@ class CategoriesList extends Component{
 
     render(){
 
-        const { categories } = this.props
-
-        if (!categories){
-            return <div>Loading....</div>
-        }
-
         return(
             <div className="col-sm-3 pull-left categories">
                 <div>
                     <h4>Choose a category:</h4>
                     <ul className="list-group">
+                        <li className="list-group-item">
+                            <Link to="/">Show All</Link>
+                        </li>
                         {this.renderCategories()}
                     </ul>
                 </div>
