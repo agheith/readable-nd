@@ -4,9 +4,11 @@ import uuid from 'uuid';
 export const FETCH_POSTS = 'FETCH_POSTS';
 export const FETCH_POST = 'FETCH_POST';
 export const CREATE_POST = 'CREATE_POST';
+export const EDIT_POST = 'EDIT_POST';
 export const DELETE_POST = 'DELETE_POST';
 export const VOTE_POST = 'VOTE_POST';
 export const FETCH_CATEGORIES = 'FETCH_CATEGORIES';
+export const CATEGORY_POST = 'CATEGORY_POST';
 
 const ROOT_URL = 'http://localhost:3001';
 const AUTH_HEADERS = { 'Authorization': 'whatever-you-want', 'Accept': 'application/json', 'Content-Type': 'application/json' }
@@ -53,6 +55,21 @@ export function createPost(values, callback){
     }
 }
 
+
+export function editPost(id, values){
+
+    return dispatch => {
+        axios.put(`${ROOT_URL}/posts/${id}`, values).then(res => {
+
+            dispatch({
+                type: EDIT_POST,
+                payload: res.data
+            })
+        })
+    }
+}
+
+
 export function deletePost(id, callback){
 
     const request = axios.delete(`${ROOT_URL}/posts/${id}`).then(() => callback())
@@ -81,8 +98,19 @@ export function fetchCategories() {
     axios.get(`${ROOT_URL}/categories`).then(res => dispatch({
 
         type: FETCH_CATEGORIES,
-         payload: res.data
+        payload: res.data
 
      }));
   };
+}
+
+export function categoryPost(category){
+    return dispatch => {
+        axios.get(`${ROOT_URL}/${category}/posts`).then(res => dispatch({
+
+        type: CATEGORY_POST,
+        payload: res.data
+
+        }));
+    }
 }

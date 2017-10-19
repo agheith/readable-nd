@@ -2,11 +2,11 @@ import _ from 'lodash';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
-import { fetchCategories } from '../actions'
+import { fetchCategories, categoryPost } from '../actions'
 
 class CategoriesList extends Component{
 
-    componentDidMount(){
+    componentWillMount(){
         this.props.fetchCategories();
     }
 
@@ -15,19 +15,25 @@ class CategoriesList extends Component{
             return _.map(this.props.categories, (category, index) => {
                 return (
                     <li key={index} className="list-group-item">
-                        <Link to ="/">
+                        <Link to={`/${category.path}`} onClick={() => categoryPost(category.path)}>
                             {category.name}
                         </Link>
                     </li>
                 );
             })
         }
-
     }
 
 
 
     render(){
+
+        const { categories } = this.props
+
+        if (!categories){
+            return <div>Loading....</div>
+        }
+
         return(
             <div className="col-sm-3 pull-left categories">
                 <div>
@@ -45,4 +51,4 @@ function mapStateToProps(state){
     return { categories: state.categories }
 }
 
-export default connect(mapStateToProps, { fetchCategories })(CategoriesList);
+export default connect(mapStateToProps, { fetchCategories, categoryPost })(CategoriesList);

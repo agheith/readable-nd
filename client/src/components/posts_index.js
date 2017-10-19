@@ -8,7 +8,7 @@ import CategoriesList from './categories_list';
 
 class PostsIndex extends Component{
 
-    componentDidMount(){
+    componentWillMount(){
         this.props.fetchPosts();
     }
 

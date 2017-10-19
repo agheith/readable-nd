@@ -19,6 +19,7 @@ class PostsShow extends Component{
         });
     }
 
+
     render(){
 
         const { post } = this.props;
@@ -37,11 +38,14 @@ class PostsShow extends Component{
                     >
                         Delete Post
                     </button>
-                    <button
-                        className="add-post btn btn-info pull-xs-right"
-                    >
-                        Edit Post
-                    </button>
+
+                    <Link to={`posts/${post.id}`}>
+                        <button
+                            className="add-post btn btn-info pull-xs-right"
+                        >
+                            Edit Post
+                        </button>
+                    </Link>
                 </div>
                 <div className="list-group-item post-show">
                     <h3>{post.title}</h3>
