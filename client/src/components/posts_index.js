@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { fetchPosts, votePost } from '../actions';
 import CategoriesList from './categories_list';
+import Comments from './comments';
 
 
 class PostsIndex extends Component{
@@ -73,7 +74,7 @@ class PostsIndex extends Component{
                             {this.renderPosts()}
                         </ul>
                     </div>
-
+                    <Comments />
                 </div>
             </div>
 

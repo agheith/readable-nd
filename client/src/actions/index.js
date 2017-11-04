@@ -10,6 +10,8 @@ export const VOTE_POST = 'VOTE_POST';
 export const FETCH_CATEGORIES = 'FETCH_CATEGORIES';
 export const CATEGORY_POST = 'CATEGORY_POST';
 
+export const FETCH_POST_COMMENTS = 'FETCH_POST_COMMENTS';
+
 const ROOT_URL = 'http://localhost:3001';
 const AUTH_HEADERS = { 'Authorization': 'whatever-you-want', 'Accept': 'application/json', 'Content-Type': 'application/json' }
 
@@ -112,5 +114,24 @@ export function categoryPost(category){
         payload: res.data
 
     })).catch(err => console.log(err));
+    }
+}
+
+// 
+// export function fetchPostComments(parentId){
+//     return dispatch => {
+//         axios.get(`${ROOT_URL}/posts/${parentId}/comments`).then(res => dispatch({
+//             type: FETCH_POST_COMMENTS,
+//             payload: res.data
+//         }))
+//     }
+// }
+
+export function fetchPostComments(parentId){
+    const request = axios.get(`${ROOT_URL}/posts/${parentId}/comments`)
+
+    return {
+        type: FETCH_POST_COMMENTS,
+        payload: request
     }
 }
