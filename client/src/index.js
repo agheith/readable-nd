@@ -12,10 +12,10 @@ import PostsNew from './components/posts_new';
 import PostsShow from './components/posts_show';
 import PostsEdit from './components/posts_edit';
 
-const createStoreWithMiddleware = applyMiddleware(promise)(createStore);
+const createStoreWithMiddleware = applyMiddleware(promise, thunk)(createStore);
 
 ReactDOM.render(
-  <Provider store={createStoreWithMiddleware(reducers, applyMiddleware(thunk))}>
+  <Provider store={createStoreWithMiddleware(reducers)}>
     <BrowserRouter>
         <div>
             <Switch>

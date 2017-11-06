@@ -117,21 +117,25 @@ export function categoryPost(category){
     }
 }
 
-// 
-// export function fetchPostComments(parentId){
-//     return dispatch => {
-//         axios.get(`${ROOT_URL}/posts/${parentId}/comments`).then(res => dispatch({
-//             type: FETCH_POST_COMMENTS,
-//             payload: res.data
-//         }))
-//     }
-// }
 
-export function fetchPostComments(parentId){
-    const request = axios.get(`${ROOT_URL}/posts/${parentId}/comments`)
+export function fetchPostComments(postId){
+    return dispatch => {
+        axios.get(`${ROOT_URL}/posts/${postId}/comments`).then(res => dispatch({
 
-    return {
-        type: FETCH_POST_COMMENTS,
-        payload: request
+            type: FETCH_POST_COMMENTS,
+            payload: res.data
+
+        }))
     }
 }
+
+// export function fetchPostComments(parentId){
+//     const request = axios.get(`${ROOT_URL}/posts/${parentId}/comments`);
+//
+//     return (dispatch) => {
+//         request.then(({data}) => {
+//             dispatch({ type: FETCH_POST_COMMENTS, payload: data })
+//         })
+//     }
+//
+// }

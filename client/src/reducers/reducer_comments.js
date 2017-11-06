@@ -5,7 +5,7 @@ export default function (state = {}, action){
     switch(action.type){
 
         case FETCH_POST_COMMENTS:
-            console.log(action);
+            console.log(action.payload);
             return _.mapKeys(action.payload, 'id');
 
         default:
