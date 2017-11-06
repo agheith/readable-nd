@@ -14,10 +14,11 @@ export default function (state={}, action){
         return { ...state, [action.payload.data.id]: action.payload.data };
 
     case FETCH_POSTS:
-        console.log(action);
+        // console.log(action);
         return _.mapKeys(action.payload.data, 'id')
 
     case EDIT_POST:
+        console.log(action);
         return { ...state, [action.payload.id]: action.payload}
 
     case DELETE_POST:

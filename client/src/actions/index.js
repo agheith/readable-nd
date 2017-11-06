@@ -58,11 +58,12 @@ export function createPost(values, callback){
 }
 
 
-export function editPost(id, values){
+export function editPost(id, values, callback){
 
     return dispatch => {
         axios.put(`${ROOT_URL}/posts/${id}`, values).then(res => {
 
+            callback();
             dispatch({
                 type: EDIT_POST,
                 payload: res.data
