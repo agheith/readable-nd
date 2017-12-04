@@ -9,12 +9,11 @@ This repository includes the code for the backend API Server that you'll use to 
 To get started developing right away:
 
 * Install and start the API server
-    - `cd api-server`
+    - `cd erver`
     - `npm install`
     - `node server`
-* In another terminal window, use Create React App to scaffold out the front-end
-    - `create-react-app frontend`
-    - `cd frontend`
+* In another terminal window:
+    - `cd client`
     - `npm start`
 
 ## API Server
