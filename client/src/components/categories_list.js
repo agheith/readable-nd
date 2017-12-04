@@ -1,51 +1,50 @@
-import _ from 'lodash';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
-import { fetchCategories, categoryPost } from '../actions'
+import { Button, ListGroupItem } from 'reactstrap';
+import { fetchCategories } from '../actions';
 
-class CategoriesList extends Component{
+class CategoriesList extends Component {
+	componentDidMount() {
+		this.props.fetchCategories();
+	}
 
-    componentWillMount(){
-        this.props.fetchCategories();
-    }
+	renderCategories() {
+		const { categories } = this.props;
+		if (categories) {
+			return categories.map((category) => {
+				return (
+					<li key={category.path} className="list-group-item">
+						<Link to={`/${category.path}`}>{category.name}</Link>
+					</li>
+				);
+			});
+		}
+		return <div>loading categories...</div>;
+	}
 
-    renderCategories(){
-        if(this.props.categories){
-            return _.map(this.props.categories, (category, index) => {
-                return (
-                    <li key={index} className="list-group-item">
-                        <Link to={`/${category.path}`} onClick={() => this.props.categoryPost(category.path)}>
-                            {category.name}
-                        </Link>
-                    </li>
-                );
-            })
-        }
-    }
-
-
-
-    render(){
-
-        return(
-            <div className="col-sm-3 pull-left categories">
-                <div>
-                    <h4>Choose a category:</h4>
-                    <ul className="list-group">
-                        <li className="list-group-item">
-                            <Link to="/">Show All</Link>
-                        </li>
-                        {this.renderCategories()}
-                    </ul>
-                </div>
-            </div>
-        );
-    }
+	render() {
+		return (
+			<div className="col-sm-4 pull-right">
+				<h2>Categories</h2>
+			<ListGroupItem>
+				<Link to="/">
+					All Categories
+				</Link>
+			</ListGroupItem>
+			<ul className="list-group">{this.renderCategories()}</ul>
+			<p className="add-post">
+				<Link to="posts/new">
+					<Button color="primary">Add a Post</Button>
+				</Link>
+			</p>
+			</div>
+		);
+	}
 }
 
-function mapStateToProps(state){
-    return { categories: state.categories }
+function mapStateToProps(state) {
+	return { categories: state.categories.all };
 }
 
-export default connect(mapStateToProps, { fetchCategories, categoryPost })(CategoriesList);
+export default connect(mapStateToProps, { fetchCategories })(CategoriesList);

@@ -1,31 +1,26 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import { BrowserRouter } from 'react-router-dom';
 import { Provider } from 'react-redux';
-import { createStore, applyMiddleware } from 'redux';
-import { BrowserRouter, Route, Switch } from 'react-router-dom';
-import promise from 'redux-promise'
 import thunk from 'redux-thunk';
+import { createStore, applyMiddleware, compose } from 'redux';
+import App from './components/App';
+import reducer from './reducers';
 
-import reducers from './reducers';
-import PostsIndex from './components/posts_index';
-import PostsNew from './components/posts_new';
-import PostsShow from './components/posts_show';
-import PostsEdit from './components/posts_edit';
 
-const createStoreWithMiddleware = applyMiddleware(promise, thunk)(createStore);
+const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
+
+const store = createStore(
+    reducer,
+    composeEnhancers(
+        applyMiddleware(thunk)
+    )
+);
 
 ReactDOM.render(
-  <Provider store={createStoreWithMiddleware(reducers)}>
-    <BrowserRouter>
-        <div>
-            <Switch>
-                <Route exact path="/" component={PostsIndex} />
-                <Route exact path="/:category"  component={ props => <PostsIndex {...props} />} />
-                <Route exact path="/posts/new" component={PostsNew} />
-                <Route path="/:category/edit/:id" children={ props => <PostsEdit {...props} /> } />
-                <Route path="/:category/:id" component={PostsShow} />
-            </Switch>
-        </div>
-    </BrowserRouter>
-  </Provider>
-  , document.querySelector('.container'));
+    <Provider store={store}>
+      <BrowserRouter>
+        <App />
+      </BrowserRouter>
+    </Provider>
+    , document.querySelector('.container'));

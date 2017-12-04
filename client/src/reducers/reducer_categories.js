@@ -1,14 +1,16 @@
-import _ from 'lodash';
-import { FETCH_CATEGORIES } from '../actions';
+import { FETCH_CATEGORIES } from '../actions/types';
 
-export default function (state = {}, action) {
-    switch (action.type) {
+const INITIAL_VAL = {
+	all: [],
+};
 
-        case FETCH_CATEGORIES:
-            console.log(action.payload);
-            return action.payload.categories;
+export default function (state = INITIAL_VAL, action) {
+	switch (action.type) {
 
-        default:
-            return state;
-    }
+		case FETCH_CATEGORIES:
+			return { ...state, all: action.payload.categories };
+
+		default:
+			return state;
+	}
 }

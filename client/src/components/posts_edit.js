@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { editPost, fetchPosts } from '../actions';
 
-class PostsEdit extends Component{
+class PostsEdit extends Component {
 
     componentWillMount() {
         this.props.fetchPosts(this.props.match.params.id);
@@ -14,22 +14,28 @@ class PostsEdit extends Component{
         this.handleInitialValues();
     }
 
-    handleInitialValues(){
-        if(this.props.post) {
+	onSubmit(values) {
+		const { editPost, match: { params: { id, category } }, history } = this.props;
+		editPost(id, values, () => {
+			history.push(`/${category}/${id}`)
+		});
+	}
+
+    handleInitialValues() {
+        if (this.props.post) {
             const initialValues = {
-                title: this.props.title,
-                body: this.props.body
+				title: this.props.post.title,
+				body: this.props.post.body,
             };
-            this.props.initialize(initialValues)
+            this.props.initialize(initialValues);
         }
     }
 
-    renderField(field){
-
+    renderField(field) {
         const { meta: { touched, error } } = field;
         const className = `form-group col-sm-12 ${touched && error ? 'has-danger' : ''}`;
 
-        return(
+        return (
             <div className={className}>
                 <label>{field.label}</label>
                 <input
@@ -52,7 +58,7 @@ class PostsEdit extends Component{
             <div className={className}>
                 <label>{field.label}</label>
                 <textarea
-                    className="form-control my-text"
+                    className="form-control"
                     type="text"
                     {...field.input}
                 />
@@ -63,21 +69,11 @@ class PostsEdit extends Component{
         );
     }
 
-    onSubmit(values){
-
-        const { editPost, match: { params: { id, category } }, history } = this.props;
-        editPost(id, values, () => {
-            history.push(`/${category}/${id}`)
-        });
-    }
-
-
-    render(){
-
+    render() {
         const { handleSubmit } = this.props;
         //handleSubmit comes from redux-form
 
-        return(
+        return (
             <div>
                 <form onSubmit={handleSubmit(this.onSubmit.bind(this))}>
                     <Field
@@ -87,13 +83,13 @@ class PostsEdit extends Component{
                     />
 
                     <Field
-                        label="Post Content"
+                        label="Say Something Nice!"
                         name="body"
                         component={this.renderBodyField}
                     />
 
                     <div className="my-buttons">
-                        <button type="submit" className="btn btn-primary">Update</button>
+                        <button type="submit" className="edit-button btn btn-primary">Edit</button>
                         <Link to="/" className="btn btn-danger">Cancel</Link>
                     </div>
 
@@ -103,30 +99,33 @@ class PostsEdit extends Component{
     }
 }
 
-function validate(values){
+function validate(values) {
     // console.log(values);
     const errors = {};
 
     //Validate the inputs from 'values'
-    if(!values.title || values.title.length < 3){
-        errors.title = "Enter a title that is at least 3 characters!";
+    if (!values.title || values.title.length < 3) {
+        errors.title = 'Enter a title that is at least 3 characters!';
     }
 
-    if(!values.body){
-        errors.body = "Enter some content";
+    if (!values.body) {
+        errors.body = 'Enter some content';
     }
 
     //if the error object is empty, the form is fine to submit
-    return errors
+    return errors;
 }
 
-function mapStateToProps(state, ownProps){
-    return { post: state.posts[ownProps.match.params.id] }
+function mapStateToProps(state, ownProps) {
+    return { post: state.posts[ownProps.match.params.id] };
 }
 
 export default reduxForm({
     validate,
     form: 'PostsEditForm',
 })(
-    connect(mapStateToProps, { editPost, fetchPosts })(PostsEdit)
+    connect(mapStateToProps, {
+        editPost,
+        fetchPosts
+     })(PostsEdit)
 );
