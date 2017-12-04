@@ -1,18 +1,13 @@
-import React, { Component } from 'react';
+import React from 'react';
 import PostsSort from './posts_sort';
 import CategoriesList from './categories_list';
 
-class PostsIndex extends Component {
-	render() {
-		return (
-			<div>
-				<div className="col-8">
-					<CategoriesList />
-					<PostsSort {...this.props} />
-				</div>
-			</div>
-		);
-	}
-}
+const PostsIndex = (props) =>
+	<div>
+		<div className="col-8">
+			<CategoriesList />
+			<PostsSort {...props} />
+		</div>
+	</div>;
 
 export default PostsIndex;

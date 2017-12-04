@@ -31,6 +31,10 @@ class PostsShow extends Component {
     });
   }
 
+  onDeleteButton(id) {
+      this.props.deletePost(id, () => {});
+  }
+
   render() {
     const { post, votePost } = this.props;
     return !post
@@ -73,6 +77,17 @@ class PostsShow extends Component {
                         />
                         {this.state.count}
                         <span className="single-post-button">
+                            <Link to={'/'}>
+                            <Button onClick={() => this.onDeleteButton(post.id)}>
+                                <Fontawesome
+                                    name="times-circle"
+                                    size='2x'
+                                    style={{ color: '#d9534f', marginRight: '10px' }}
+                                />
+                            </Button>
+                            </Link>
+                        </span>
+                        <span className="single-post-button">
                             <Link to={`/${post.category}/edit/${post.id}`}>
                                 <Fontawesome
                                     name="pencil-square-o"
@@ -80,7 +95,6 @@ class PostsShow extends Component {
                                     style={{ color: '#5cb85c', marginRight: '10px' }}
                                 />
                             </Link>
-
                         </span>
                     </span>
                 </div>

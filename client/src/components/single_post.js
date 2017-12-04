@@ -41,7 +41,7 @@ class SinglePost extends Component {
 
 					<CardBlock>
 						<CardTitle>
-							<Link to={`posts/${post.id}`}>{post.title}</Link>
+							<Link to={`${post.category}/${post.id}`}>{post.title}</Link>
 							<p>by: {post.author}</p>
 							<div>
 								<Fontawesome
