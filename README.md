@@ -9,7 +9,7 @@ This repository includes the code for the backend API Server that you'll use to 
 To get started developing right away:
 
 * Install and start the API server
-    - `cd erver`
+    - `cd server`
     - `npm install`
     - `node server`
 * In another terminal window:
